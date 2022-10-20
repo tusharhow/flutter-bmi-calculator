@@ -30,19 +30,17 @@ class BMIController extends GetxController {
     }
   }
 
-  void changeHeightFeetSlider(double value) {
+  double get feet => feetToCm / 30.48;
+  void changeFeetSlider(double value) {
     feetToCm = value * 30.48;
     totalCm = feetToCm + inchesToCm;
-    height = totalCm;
     update();
   }
 
-  void feetInchesToCm(double feet, double inches, bool isMale) {
-    feetToCm = feet * 30.48;
-    inchesToCm = inches * 2.54;
+  double get inches => inchesToCm / 2.54;
+  void changeInchesSlider(double value) {
+    inchesToCm = value * 2.54;
     totalCm = feetToCm + inchesToCm;
-    update();
-    calculateBMI(totalCm, 60, isMale);
     update();
   }
 

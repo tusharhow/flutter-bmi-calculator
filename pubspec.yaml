@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.2.1
+  syncfusion_flutter_sliders: ^20.3.50
   get: ^4.6.5
 
 dev_dependencies:

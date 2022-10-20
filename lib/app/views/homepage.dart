@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bmi_calculator/app/components/icon_content.dart';
 import 'package:flutter_bmi_calculator/app/controllers/bmi_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../components/reusable_card.dart';
 import '../constants.dart';
@@ -12,6 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double _value = 40.0;
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E21),
       body: GetBuilder<BMIController>(
@@ -170,7 +173,7 @@ class HomePage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    controller.age.toString(),
+                                    controller.feet.toString().substring(0, 1),
                                     style: kDigitTextStyle,
                                   ),
                                   const SizedBox(
@@ -182,26 +185,51 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SliderTheme(
-                                data: SliderTheme.of(context).copyWith(
-                                  activeTrackColor: Colors.white,
-                                  inactiveTrackColor: ksliderInactiveColor,
-                                  thumbColor: Color(0xFFEB1555),
-                                  overlayColor: Color(0x29EB1555),
-                                  thumbShape: RoundSliderThumbShape(
-                                      enabledThumbRadius: 15.0),
-                                  overlayShape: RoundSliderOverlayShape(
-                                      overlayRadius: 35.0),
-                                ),
-                                child: Slider(
-                                  value: controller.feetToCm.toDouble(),
-                                  min: 0.0,
-                                  max: controller.feetToCm.toDouble(),
-                                  onChanged: (double newValue) {
-                                    controller.changeHeightFeetSlider(newValue);
-                                    controller.update();
-                                  },
-                                ),
+                              SfSlider(
+                                min: 0.0,
+                                max: 9.0,
+                                value: controller.feet.toDouble(),
+                                interval: 20,
+                                showTicks: true,
+                                showLabels: true,
+                                enableTooltip: true,
+                                minorTicksPerInterval: 1,
+                                onChanged: (dynamic value) {
+                                  controller.changeFeetSlider(value);
+                                  controller.update();
+                                },
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    controller.inches
+                                        .toString()
+                                        .substring(0, 1),
+                                    style: kDigitTextStyle,
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    'inch',
+                                    style: klabelTextStyle,
+                                  ),
+                                ],
+                              ),
+                              SfSlider(
+                                min: 0.0,
+                                max: 20.0,
+                                value: controller.inches.toDouble(),
+                                interval: 20,
+                                showTicks: true,
+                                showLabels: true,
+                                enableTooltip: true,
+                                minorTicksPerInterval: 1,
+                                onChanged: (dynamic value) {
+                                  controller.changeInchesSlider(value);
+                                  controller.update();
+                                },
                               ),
                             ],
                           ),
